@@ -1,0 +1,122 @@
+<html><head><base href="https://filipinonamegen.web/"><meta charset="UTF-8"><title>Filipino Name Generator 🇵🇭</title>
+<style>
+:root {
+  --primary: #0038A8;
+  --secondary: #CE1126;
+  --gold: #FCD116;
+  --light: #fff;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--light);
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 2rem;
+  margin: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+h1 {
+  color: var(--gold);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  background: var(--gold);
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin: 1rem;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.name-display {
+  font-size: 2rem;
+  margin: 2rem 0;
+  padding: 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  min-width: 300px;
+}
+
+.sun {
+  width: 60px;
+  height: 60px;
+  margin: 1rem;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <svg class="sun" viewBox="0 0 100 100">
+    <path fill="#FCD116" d="M50 0 L57 35 L85 15 L65 43 L100 50 L65 57 L85 85 L57 65 L50 100 L43 65 L15 85 L35 57 L0 50 L35 43 L15 15 L43 35 Z">
+      <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="20s" repeatCount="indefinite"/>
+    </path>
+  </svg>
+  
+  <h1>Filipino Name Generator</h1>
+  <button onclick="generateName()">Generate Name</button>
+  <div class="name-display" id="nameDisplay">Click to generate!</div>
+</div>
+
+<script>
+const firstNames = {
+  male: ['Antonio', 'Jose', 'Juan', 'Miguel', 'Carlos', 'Francisco', 'Ricardo', 'Eduardo', 'Manuel', 'Roberto', 'Diego', 'Gabriel', 'Angelo', 'Paolo', 'Marco'],
+  female: ['Maria', 'Ana', 'Rosa', 'Carmen', 'Sofia', 'Isabella', 'Gabriela', 'Clara', 'Angela', 'Teresa', 'Lucia', 'Victoria', 'Beatriz', 'Elena', 'Mariana']
+};
+
+const middleNames = ['de la Cruz', 'del Rosario', 'de los Santos', 'de Guzman', 'de Leon', 'Santos', 'Reyes', 'Cruz'];
+
+const lastNames = ['Garcia', 'Rodriguez', 'Martinez', 'Cruz', 'Reyes', 'Santos', 'Ramos', 'Torres', 'Flores', 'Rivera', 'Aquino', 'Mendoza', 'Gonzales', 'Bautista', 'Fernandez'];
+
+function generateName() {
+  const gender = Math.random() < 0.5 ? 'male' : 'female';
+  const firstName = firstNames[gender][Math.floor(Math.random() * firstNames[gender].length)];
+  const useMiddleName = Math.random() < 0.3;
+  const middleName = useMiddleName ? middleNames[Math.floor(Math.random() * middleNames.length)] : '';
+  const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+  
+  const fullName = useMiddleName 
+    ? `${firstName} ${middleName} ${lastName}`
+    : `${firstName} ${lastName}`;
+    
+  const nameDisplay = document.getElementById('nameDisplay');
+  nameDisplay.style.opacity = 0;
+  
+  setTimeout(() => {
+    nameDisplay.textContent = fullName;
+    nameDisplay.style.opacity = 1;
+  }, 200);
+}
+
+// Add fade transition
+document.getElementById('nameDisplay').style.transition = 'opacity 0.3s ease';
+</script>
+</body></html>
